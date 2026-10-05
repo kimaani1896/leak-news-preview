@@ -75,6 +75,7 @@ h1 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accen
 .tag { display: inline-block; padding: 0 6px; border: 1px solid var(--line); border-radius: 4px; font-size: 11px; line-height: 1.6; color: var(--muted); }
 .src { font-size: 11px; color: var(--muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* 人数: 10万未満は黒、10万以上は赤、100万以上は赤背景 */
+.n.none { color: var(--muted); font-weight: 400; }
 .t1 .n { color: var(--accent); }
 .c2.t2 { background: var(--hot-bg); }
 .t2 .n { color: var(--hot-text); }
@@ -139,7 +140,7 @@ function row(it) {
   const c1 = el("span", { class: "c1" }, el("span", { class: "co" }, it.company),
     it.tags && it.tags.length ? el("span", { class: "meta" }, ...it.tags.map((t) => el("span", { class: "tag" }, t))) : null);
   const c2 = el("span", { class: "c2 " + (c >= 1e6 ? "t2" : c >= 1e5 ? "t1" : "t0") },
-    it.people ? el("span", { class: "n" }, it.people) : null, el("span", { class: "src" }, it.source));
+    el("span", { class: it.people ? "n" : "n none" }, it.people || "人数不明"), el("span", { class: "src" }, it.source));
   return el("li", { class: "row" },
     el("a", { href: it.url, target: "_blank", rel: "noopener noreferrer", title: it.title }, d, c1, c2));
 }
