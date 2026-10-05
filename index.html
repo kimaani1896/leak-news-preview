@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【確認用】漏えいウォッチ</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="個人情報の漏えい・流出・不正アクセスのニュースだけを自動で集めて一覧にしたサイト">
+<meta name="referrer" content="no-referrer">
+<link rel="alternate" type="application/rss+xml" title="漏えいウォッチ" href="../leak-news/feed.xml">
+<style>
+:root {
+  --bg: #f6f5f2; --panel: #ffffff; --text: #1d1d1f; --muted: #6b6b70; --line: #e4e2dc;
+  --accent: #b42318; --accent-soft: #fdecea; --chip: #efede8; --chip-on: #1d1d1f; --chip-on-text: #ffffff;
+  --link: #1d1d1f; --visited: #6b6b70;
+  --bg-img: none; --col-bg: var(--bg); --col-border: transparent; --col-pad: 0; --col-pad-m: 0; --col-radius: 0;
+  --rule-jp: var(--text); --rule-world: var(--text); --day-rule: var(--muted); --month: var(--text); --month-world: var(--text);
+  --glow: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0f16; --panel: #1b2130; --text: #eef1f7; --muted: #8d96aa; --line: #232a3a;
+    --accent: #ff7a6b; --accent-soft: rgba(255, 122, 107, .16); --chip: #232a3a; --chip-on: #eef1f7; --chip-on-text: #0c0f16;
+    --link: #eef1f7; --visited: #9aa3b5;
+    --bg-img: radial-gradient(1100px 520px at 0% -8%, rgba(255, 92, 76, .13), transparent 62%),
+              radial-gradient(1000px 560px at 100% -4%, rgba(84, 120, 255, .13), transparent 62%);
+    --col-bg: #121722; --col-border: #222a3b; --col-pad: 6px 16px 14px; --col-pad-m: 4px 8px 10px; --col-radius: 14px;
+    --rule-jp: #ff7a6b; --rule-world: #6f8dff; --day-rule: #39425a; --month: #ffb3a7; --month-world: #aebfff;
+    --glow: 0 0 14px rgba(255, 122, 107, .8);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c0f16; --panel: #1b2130; --text: #eef1f7; --muted: #8d96aa; --line: #232a3a;
+  --accent: #ff7a6b; --accent-soft: rgba(255, 122, 107, .16); --chip: #232a3a; --chip-on: #eef1f7; --chip-on-text: #0c0f16;
+  --link: #eef1f7; --visited: #9aa3b5;
+  --bg-img: radial-gradient(1100px 520px at 0% -8%, rgba(255, 92, 76, .13), transparent 62%),
+            radial-gradient(1000px 560px at 100% -4%, rgba(84, 120, 255, .13), transparent 62%);
+  --col-bg: #121722; --col-border: #222a3b; --col-pad: 6px 16px 14px; --col-pad-m: 4px 8px 10px; --col-radius: 14px;
+  --rule-jp: #ff7a6b; --rule-world: #6f8dff; --day-rule: #39425a; --month: #ffb3a7; --month-world: #aebfff;
+  --glow: 0 0 14px rgba(255, 122, 107, .8);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg-img), var(--bg); background-attachment: fixed; color: var(--text);
+  font: 15px/1.6 system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", sans-serif;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px 48px; }
+header { padding: 24px 0 14px; }
+h1 { margin: 0; font-size: 24px; letter-spacing: .02em; display: flex; align-items: center; gap: 10px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.theme { border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 13px; cursor: pointer; white-space: nowrap; }
+h1 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none; box-shadow: var(--glow); }
+.sub { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+.sub a { color: var(--muted); }
+.sub.note { margin-top: 2px; font-size: 12.5px; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.col { min-width: 0; background: var(--col-bg); border: 1px solid var(--col-border); border-radius: var(--col-radius); padding: var(--col-pad); }
+.col h2 { position: sticky; top: 0; z-index: 1; margin: 0; padding: 8px 2px; background: var(--col-bg);
+  font-size: 15px; display: flex; align-items: baseline; gap: 8px; border-bottom: 2px solid var(--rule-jp); }
+.col + .col h2 { border-bottom-color: var(--rule-world); }
+.col + .col .month { color: var(--month-world); }
+.col h2 small { color: var(--muted); font-weight: 400; font-size: 12px; }
+.rows { list-style: none; margin: 0; padding: 0; }
+.row a { display: grid; grid-template-columns: 3.2em minmax(0, 1fr) auto; gap: 1px 10px; align-items: baseline;
+  padding: 9px 4px; border-bottom: 1px solid var(--line); color: var(--link); text-decoration: none; }
+.row a:hover { background: var(--panel); }
+.row.dayend a { border-bottom: 2px solid var(--day-rule); }
+.d { color: var(--muted); font-size: 14px; align-self: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.nm { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; min-width: 0; }
+.co { font-weight: 700; font-size: 18px; line-height: 1.4; overflow-wrap: anywhere; }
+.n { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; font-size: 15px; }
+.n { justify-self: end; }
+/* 10万以上は大きく、100万以上はさらに背景で強調 */
+.k1 { font-size: 18px; }
+.k2 { font-size: 19px; font-weight: 800; background: var(--accent-soft); border-radius: 4px; padding: 0 6px; }
+.src { grid-column: 3; grid-row: 2; text-align: right; font-size: 11.5px; color: var(--muted); white-space: nowrap; max-width: 14em; overflow: hidden; text-overflow: ellipsis; }
+.month { list-style: none; margin: 18px 0 2px; padding: 0 2px; font-size: 17px; font-weight: 800; color: var(--month); }
+.month:first-child { margin-top: 10px; }
+.tag { display: inline-block; padding: 0 6px; border-radius: 4px; font-size: 11px; line-height: 1.6;
+  background: var(--accent-soft); color: var(--accent); }
+.row a:visited .co { color: var(--visited); }
+.empty, .more { text-align: center; color: var(--muted); margin: 16px 0; font-size: 13px; }
+.more button { border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 8px; padding: 7px 16px; font: inherit; cursor: pointer; }
+@media (max-width: 560px) {
+  .cols { gap: 20px; }
+  .col { padding: var(--col-pad-m); }
+  .row a { grid-template-columns: minmax(0, 1fr); }
+  .d { font-size: 12px; }
+  .co { font-size: 15.5px; }
+  .n { grid-column: 1; font-size: 13px; justify-self: start; }
+  .k1 { font-size: 15px; }
+  .k2 { font-size: 15.5px; }
+  .src { grid-column: 1; text-align: left; max-width: none; }
+  .src { grid-row: auto; }
+  .nm { gap: 2px 5px; }
+}
+footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
+footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="top"><h1><span class="dot" aria-hidden="true"></span>漏えいウォッチ</h1><button class="theme" id="theme" type="button"></button></div>
+    <p class="sub">個人情報の漏えい・流出・不正アクセスのニュースだけを自動で集めています。<span id="updated"></span> ・ <a href="../leak-news/feed.xml">RSS</a></p>
+    <p class="sub note">同じ事件を報じた記事は会社名などから自動でまとめているため、まれに別の事件がまとまることがあります。</p>
+  </header>
+
+  <div class="cols">
+    <section class="col" aria-labelledby="h-jp"><h2 id="h-jp">日本 <small id="c-jp"></small></h2><ul class="rows" id="jp"></ul><div class="more" id="more-jp" hidden><button type="button">もっと見る</button></div></section>
+    <section class="col" aria-labelledby="h-world"><h2 id="h-world">海外 <small id="c-world"></small></h2><ul class="rows" id="world"></ul><div class="more" id="more-world" hidden><button type="button">もっと見る</button></div></section>
+  </div>
+
+  <footer>
+    <p>集めているところ: piyolog / Security NEXT / ScanNetSecurity / ITmedia NEWS / Googleニュース（「個人情報 漏えい」「不正アクセス 情報」の検索結果）/ 海外の大型漏えい（100万件以上）は Have I Been Pwned。</p>
+    <p>このサイトは見出しとリンクだけを載せています。記事の中身は各媒体でお読みください。</p>
+    <p>海外の漏えいデータ: <a href="https://haveibeenpwned.com/">Have I Been Pwned</a>（<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>）。1時間ごとに自動更新。アクセス解析やCookieは使っていません。</p>
+  </footer>
+</div>
+
+<script>
+const PAGE = 80;
+const COLS = { jp: "国内", world: "海外" };
+const state = { shown: { jp: PAGE, world: PAGE }, items: [] };
+const $ = (id) => document.getElementById(id);
+const jst = (iso, opt) => new Date(iso).toLocaleString("ja-JP", { timeZone: "Asia/Tokyo", ...opt });
+
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") e.className = v; else e.setAttribute(k, v);
+  }
+  for (const k of kids) if (k != null) e.append(k);
+  return e;
+}
+
+function row(it) {
+  const name = el("span", { class: "nm" }, el("span", { class: "co" }, it.company),
+    ...(it.tags || []).map((t) => el("span", { class: "tag" }, t)));
+  const c = it.count || 0;
+  const n = el("span", { class: c >= 1e6 ? "n k2" : c >= 1e5 ? "n k1" : "n" }, it.people || "");
+  const d = el("span", { class: "d" }, jst(it.date, { month: "numeric", day: "numeric" }));
+  const src = el("span", { class: "src" }, it.source);
+  return el("li", { class: "row" },
+    el("a", { href: it.url, target: "_blank", rel: "noopener noreferrer", title: it.title }, d, name, n, src));
+}
+
+function render() {
+  for (const [id, region] of Object.entries(COLS)) {
+    const hits = state.items.filter((it) => it.region === region && it.company);
+    $("c-" + id).textContent = `${hits.length}件`;
+    const out = [];
+    let month = "";
+    const list = hits.slice(0, state.shown[id]);
+    const day = (it) => jst(it.date, { year: "numeric", month: "numeric", day: "numeric" });
+    list.forEach((it, i) => {
+      const m = jst(it.date, { year: "numeric", month: "long" });
+      if (m !== month) {
+        const label = m.startsWith(jst(new Date().toISOString(), { year: "numeric" })) ? m.replace(/^\d+年/, "") : m;
+        out.push(el("li", { class: "month" }, label));
+        month = m;
+      }
+      const r = row(it);
+      if (list[i + 1] && day(list[i + 1]) !== day(it)) r.classList.add("dayend");
+      out.push(r);
+    });
+    $(id).replaceChildren(...(out.length ? out : [el("li", { class: "empty" }, "まだありません")]));
+    $("more-" + id).hidden = hits.length <= state.shown[id];
+  }
+}
+
+for (const id of Object.keys(COLS)) {
+  $("more-" + id).querySelector("button").onclick = () => { state.shown[id] += PAGE; render(); };
+}
+
+// ダーク/ライト切り替え（選んだ方をこのブラウザに覚える。保存できなくても表示は動く）
+const dark = () => document.documentElement.dataset.theme
+  ? document.documentElement.dataset.theme === "dark"
+  : matchMedia("(prefers-color-scheme: dark)").matches;
+const themeLabel = () => { $("theme").textContent = dark() ? "☀ ライト" : "🌙 ダーク"; };
+try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch {}
+themeLabel();
+$("theme").onclick = () => {
+  const t = dark() ? "light" : "dark";
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("theme", t); } catch {}
+  themeLabel();
+};
+
+fetch("../leak-news/items.json", { cache: "no-cache" })
+  .then((r) => r.json())
+  .then((d) => {
+    state.items = d.items;
+    $("updated").textContent = "最終更新 " + jst(d.updated, { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+    render();
+  })
+  .catch(() => $("jp").replaceChildren(el("li", { class: "empty" }, "読み込みに失敗しました。少し待ってから再読み込みしてください")));
+</script>
+</body>
+</html>
