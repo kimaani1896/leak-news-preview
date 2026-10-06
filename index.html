@@ -15,7 +15,7 @@
   --link: #3a3936; --visited: #7c7970;
   --bg-img: none; --col-bg: #ebe8e1; --col-border: #d9d4ca; --col-pad: 6px 16px 14px; --col-pad-m: 4px 8px 10px; --col-radius: 14px;
   --rule-jp: #d4968e; --rule-world: #9daedb; --day-rule: #c3beb2; --month: #4a4843; --month-world: #4a4843;
-  --glow: none; --purple: #7a52b6; --name: #2e7d4f;
+  --glow: none; --purple: #7a52b6;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -26,7 +26,7 @@
               radial-gradient(1000px 560px at 100% -4%, rgba(84, 120, 255, .13), transparent 62%);
     --col-bg: #121722; --col-border: #222a3b; --col-pad: 6px 16px 14px; --col-pad-m: 4px 8px 10px; --col-radius: 14px;
     --rule-jp: #ff7a6b; --rule-world: #6f8dff; --day-rule: #39425a; --month: #ffb3a7; --month-world: #aebfff;
-    --glow: 0 0 14px rgba(255, 122, 107, .8); --purple: #b99dff; --name: #6fd69b;
+    --glow: 0 0 14px rgba(255, 122, 107, .8); --purple: #b99dff;
   }
 }
 :root[data-theme="dark"] {
@@ -37,7 +37,7 @@
             radial-gradient(1000px 560px at 100% -4%, rgba(84, 120, 255, .13), transparent 62%);
   --col-bg: #121722; --col-border: #222a3b; --col-pad: 6px 16px 14px; --col-pad-m: 4px 8px 10px; --col-radius: 14px;
   --rule-jp: #ff7a6b; --rule-world: #6f8dff; --day-rule: #39425a; --month: #ffb3a7; --month-world: #aebfff;
-  --glow: 0 0 14px rgba(255, 122, 107, .8); --purple: #b99dff; --name: #6fd69b;
+  --glow: 0 0 14px rgba(255, 122, 107, .8); --purple: #b99dff;
 }
 * { box-sizing: border-box; }
 body {
@@ -68,7 +68,7 @@ h1 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accen
 /* セル1: 会社名＋その下にタグ / セル2: 人数＋その下に媒体名 */
 .c1 { padding: 8px 12px; border-left: 1px solid var(--line); min-width: 0; }
 .c2 { padding: 8px 12px; border-left: 1px solid var(--line); display: flex; flex-direction: column; align-items: flex-end; justify-content: center; text-align: right; min-width: 0; }
-.co { display: block; color: var(--name); font-weight: 700; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere; }
+.co { display: block; font-weight: 700; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere; }
 .n { font-weight: 700; font-size: 16px; line-height: 1.45; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .meta { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
 .tag { display: inline-block; padding: 0 6px; border: 1px solid var(--line); border-radius: 4px; font-size: 11px; line-height: 1.6; color: var(--muted); }
@@ -121,7 +121,7 @@ h1 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accen
 .misc li a:hover { background: var(--panel); }
 /* 見出しは日本の列の会社名と同じ文字（太字・16px、スマホ14px） */
 .misc .mt { display: block; font-weight: 700; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere; }
-.misc .mt, .misc li a:visited .mt { color: var(--name); }
+.misc .mt, .misc li a:visited .mt { color: var(--link); }
 .misc .md { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
 .misc .ms { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
 @media (max-width: 560px) {
