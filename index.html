@@ -119,13 +119,16 @@ h1 .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accen
 .misc li a { display: grid; grid-template-columns: 3.4em minmax(0, 1fr); gap: 0 8px; padding: 8px 4px; border-bottom: 1px solid var(--line);
   color: var(--link); text-decoration: none; font-size: 14px; line-height: 1.5; }
 .misc li a:hover { background: var(--panel); }
-.misc .mt, .misc li a:visited .mt { color: var(--text); }
+/* 見出しは日本の列の会社名と同じ文字（太字・16px、スマホ14px） */
+.misc .mt { display: block; font-weight: 700; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere; }
+.misc .mt, .misc li a:visited .mt { color: var(--link); }
 .misc .md { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
 .misc .ms { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
 @media (max-width: 560px) {
   .cols[data-tab="misc"] .main, .cols:not([data-tab="misc"]) .misc { display: none; }
   .misc li a { grid-template-columns: 2.9em minmax(0, 1fr); font-size: 13px; }
   .misc .md { font-size: 12px; }
+  .misc .mt { font-size: 14px; }
 }
 footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; }
 footer a { color: var(--muted); }
